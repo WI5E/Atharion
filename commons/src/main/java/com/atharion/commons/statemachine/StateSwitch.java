@@ -1,4 +1,4 @@
-package com.atharion.commons.statemachines;
+package com.atharion.commons.statemachine;
 
 import lombok.Getter;
 import lombok.Setter;

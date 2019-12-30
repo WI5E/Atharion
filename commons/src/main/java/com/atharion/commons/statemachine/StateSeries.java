@@ -1,9 +1,8 @@
-package com.atharion.commons.statemachines;
+package com.atharion.commons.statemachine;
 
 import javax.annotation.Nonnull;
 import java.time.Duration;
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public class StateSeries extends StateHolder {
 

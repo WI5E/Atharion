@@ -1,4 +1,4 @@
-package com.atharion.commons.statemachines;
+package com.atharion.commons.statemachine;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
