@@ -55,13 +55,13 @@ class SingleHandlerListImpl<T extends Event> implements SingleHandlerList<T> {
 
     @Nonnull
     @Override
-    public SingleSubscription<T> register(@Nonnull Plugin plugin) {
+    public SingleSubscription<T> register() {
         if (this.handlers.isEmpty()) {
             throw new IllegalStateException("No handlers have been registered");
         }
 
         HelperEventListener<T> listener = new HelperEventListener<>(this.builder, this.handlers);
-        listener.register(plugin);
+        listener.register();
         return listener;
     }
 }

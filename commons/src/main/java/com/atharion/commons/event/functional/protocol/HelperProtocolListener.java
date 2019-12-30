@@ -25,6 +25,7 @@
 
 package com.atharion.commons.event.functional.protocol;
 
+import com.atharion.commons.utils.function.LoaderUtils;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
@@ -58,8 +59,8 @@ class HelperProtocolListener extends PacketAdapter implements ProtocolSubscripti
     private final AtomicBoolean active = new AtomicBoolean(true);
 
     @SuppressWarnings("unchecked")
-    HelperProtocolListener(Plugin plugin, ProtocolSubscriptionBuilderImpl builder, List<BiConsumer<ProtocolSubscription, ? super PacketEvent>> handlers) {
-        super(plugin, builder.priority, builder.types);
+    HelperProtocolListener(ProtocolSubscriptionBuilderImpl builder, List<BiConsumer<ProtocolSubscription, ? super PacketEvent>> handlers) {
+        super(LoaderUtils.getPlugin(), builder.priority, builder.types);
 
         this.types = builder.types;
         this.exceptionConsumer = builder.exceptionConsumer;

@@ -1,17 +1,29 @@
 package com.atharion.commons;
 
-import org.bukkit.plugin.Plugin;
+import com.atharion.commons.terminable.composite.CompositeTerminable;
+import com.atharion.commons.terminable.module.TerminableModule;
+import com.atharion.commons.utils.function.LoaderUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class AtharionPlugin extends JavaPlugin implements Plugin {
+import javax.annotation.Nonnull;
 
-    protected void load() {}
-    protected void enable() {}
-    protected void disable() {}
+public class AtharionPlugin extends JavaPlugin implements CompactPlugin {
+
+    private CompositeTerminable compositeTerminable;
+
+    protected void load() {
+    }
+
+    protected void enable() {
+    }
+
+    protected void disable() {
+    }
 
     @Override
     public void onLoad() {
-        //setup services
+        LoaderUtils.getPlugin();
+        this.compositeTerminable = CompositeTerminable.create();
 
         this.load();
     }
@@ -28,5 +40,17 @@ public class AtharionPlugin extends JavaPlugin implements Plugin {
         //setup services
 
         this.disable();
+    }
+
+    @Nonnull
+    @Override
+    public <T extends AutoCloseable> T bind(@Nonnull T terminable) {
+        return this.compositeTerminable.bind(terminable);
+    }
+
+    @Nonnull
+    @Override
+    public <T extends TerminableModule> T bindModule(@Nonnull T module) {
+        this.compositeTerminable.bindModule(module);
     }
 }

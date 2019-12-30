@@ -23,39 +23,48 @@
  *  SOFTWARE.
  */
 
-package com.atharion.commons.event.functional.protocol;
+package com.atharion.commons.hologram;
 
-import com.comphenix.protocol.events.PacketEvent;
+import com.atharion.commons.serialize.GsonSerializable;
+import com.atharion.commons.world.Position;
+import com.google.gson.JsonElement;
+import org.bukkit.Bukkit;
 
-import com.atharion.commons.event.ProtocolSubscription;
-import org.bukkit.plugin.Plugin;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.function.BiConsumer;
 
 import javax.annotation.Nonnull;
 
-class ProtocolHandlerListImpl implements ProtocolHandlerList {
-    private final ProtocolSubscriptionBuilderImpl builder;
-    private final List<BiConsumer<ProtocolSubscription, ? super PacketEvent>> handlers = new ArrayList<>(1);
+/**
+ * A simple hologram utility.
+ */
+public interface Hologram extends BaseHologram, GsonSerializable {
 
-    ProtocolHandlerListImpl(@Nonnull ProtocolSubscriptionBuilderImpl builder) {
-        this.builder = builder;
-    }
-
+    /**
+     * Creates and returns a new hologram
+     *
+     * <p>Note: the hologram will not be spawned automatically.</p>
+     *
+     * @param position the position of the hologram
+     * @param lines the initial lines to display
+     * @return the new hologram.
+     */
     @Nonnull
-    @Override
-    public ProtocolHandlerList biConsumer(@Nonnull BiConsumer<ProtocolSubscription, ? super PacketEvent> handler) {
-        Objects.requireNonNull(handler, "handler");
-        this.handlers.add(handler);
-        return this;
+    static Hologram create(@Nonnull Position position, @Nonnull List<String> lines) {
+        return Bukkit.getServicesManager().load(HologramFactory.class).newHologram(position, lines);
     }
 
-    @Nonnull
-    @Override
-    public ProtocolSubscription register() {
-        return new HelperProtocolListener(builder, handlers);
+    static Hologram deserialize(JsonElement element) {
+        return Bukkit.getServicesManager().load(HologramFactory.class).deserialize(element);
     }
+
+    /**
+     * Updates the lines displayed by this hologram
+     *
+     * <p>This method does not refresh the actual hologram display. {@link #spawn()} must be called for these changes
+     * to apply.</p>
+     *
+     * @param lines the new lines
+     */
+    void updateLines(@Nonnull List<String> lines);
+
 }

@@ -1,3 +1,4 @@
+  
 /*
  * This file is part of helper, licensed under the MIT License.
  *
@@ -23,39 +24,27 @@
  *  SOFTWARE.
  */
 
-package com.atharion.commons.event.functional.protocol;
+package com.atharion.commons.hologram.individual;
 
-import com.comphenix.protocol.events.PacketEvent;
+import com.atharion.commons.world.Position;
 
-import com.atharion.commons.event.ProtocolSubscription;
-import org.bukkit.plugin.Plugin;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.function.BiConsumer;
 
 import javax.annotation.Nonnull;
 
-class ProtocolHandlerListImpl implements ProtocolHandlerList {
-    private final ProtocolSubscriptionBuilderImpl builder;
-    private final List<BiConsumer<ProtocolSubscription, ? super PacketEvent>> handlers = new ArrayList<>(1);
+/**
+ * A object which can create {@link IndividualHologram}s.
+ */
+public interface IndividualHologramFactory {
 
-    ProtocolHandlerListImpl(@Nonnull ProtocolSubscriptionBuilderImpl builder) {
-        this.builder = builder;
-    }
-
+    /**
+     * Creates a new hologram.
+     *
+     * @param position the position of the hologram
+     * @param lines the lines to display
+     * @return the new hologram
+     */
     @Nonnull
-    @Override
-    public ProtocolHandlerList biConsumer(@Nonnull BiConsumer<ProtocolSubscription, ? super PacketEvent> handler) {
-        Objects.requireNonNull(handler, "handler");
-        this.handlers.add(handler);
-        return this;
-    }
+    IndividualHologram newHologram(@Nonnull Position position, @Nonnull List<HologramLine> lines);
 
-    @Nonnull
-    @Override
-    public ProtocolSubscription register() {
-        return new HelperProtocolListener(builder, handlers);
-    }
 }

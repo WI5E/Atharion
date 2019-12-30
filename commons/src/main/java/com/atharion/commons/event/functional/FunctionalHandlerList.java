@@ -25,8 +25,6 @@
 
 package com.atharion.commons.event.functional;
 
-import org.bukkit.plugin.Plugin;
-
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -65,6 +63,6 @@ public interface FunctionalHandlerList<T, R> {
      * @throws IllegalStateException if no handlers have been registered
      */
     @Nonnull
-    R register(@Nonnull Plugin plugin);
+    R register();
 
 }

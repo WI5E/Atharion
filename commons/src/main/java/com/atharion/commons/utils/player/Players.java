@@ -1,4 +1,4 @@
-package com.atharion.commons.utils.players;
+package com.atharion.commons.utils.player;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -31,11 +31,11 @@ public final class Players {
         return all().size();
     }
 
-    public boolean any() {
+    public static boolean any() {
         return size() > 0;
     }
 
-    public void forEach(@Nonnull Consumer<Player> consumer) {
+    public static void forEach(@Nonnull Consumer<Player> consumer) {
         all().forEach(consumer);
     }
 }

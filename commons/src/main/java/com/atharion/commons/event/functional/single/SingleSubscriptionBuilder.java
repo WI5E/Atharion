@@ -147,8 +147,8 @@ public interface SingleSubscriptionBuilder<T extends Event> extends Subscription
      * @throws NullPointerException if the handler is null
      */
     @Nonnull
-    default SingleSubscription<T> handler(@Nonnull Plugin plugin, @Nonnull Consumer<? super T> handler) {
-        return handlers().consumer(handler).register(plugin);
+    default SingleSubscription<T> handler(@Nonnull Consumer<? super T> handler) {
+        return handlers().consumer(handler).register();
     }
 
     /**
@@ -159,8 +159,8 @@ public interface SingleSubscriptionBuilder<T extends Event> extends Subscription
      * @throws NullPointerException if the handler is null
      */
     @Nonnull
-    default SingleSubscription<T> biHandler(@Nonnull Plugin plugin, @Nonnull BiConsumer<SingleSubscription<T>, ? super T> handler) {
-        return handlers().biConsumer(handler).register(plugin);
+    default SingleSubscription<T> biHandler(@Nonnull BiConsumer<SingleSubscription<T>, ? super T> handler) {
+        return handlers().biConsumer(handler).register();
     }
     
 }

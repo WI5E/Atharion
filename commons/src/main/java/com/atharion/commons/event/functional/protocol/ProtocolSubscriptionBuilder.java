@@ -142,8 +142,8 @@ public interface ProtocolSubscriptionBuilder extends SubscriptionBuilder<PacketE
      * @throws NullPointerException if the handler is null
      */
     @Nonnull
-    default ProtocolSubscription handler(@Nonnull Plugin plugin, @Nonnull Consumer<? super PacketEvent> handler) {
-        return handlers().consumer(handler).register(plugin);
+    default ProtocolSubscription handler(@Nonnull Consumer<? super PacketEvent> handler) {
+        return handlers().consumer(handler).register();
     }
 
     /**
@@ -154,8 +154,8 @@ public interface ProtocolSubscriptionBuilder extends SubscriptionBuilder<PacketE
      * @throws NullPointerException if the handler is null
      */
     @Nonnull
-    default ProtocolSubscription biHandler(@Nonnull Plugin plugin, @Nonnull BiConsumer<ProtocolSubscription, ? super PacketEvent> handler) {
-        return handlers().biConsumer(handler).register(plugin);
+    default ProtocolSubscription biHandler(@Nonnull BiConsumer<ProtocolSubscription, ? super PacketEvent> handler) {
+        return handlers().biConsumer(handler).register();
     }
     
 }

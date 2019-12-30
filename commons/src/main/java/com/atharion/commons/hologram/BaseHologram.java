@@ -23,39 +23,51 @@
  *  SOFTWARE.
  */
 
-package com.atharion.commons.event.functional.protocol;
+package com.atharion.commons.hologram;
 
-import com.comphenix.protocol.events.PacketEvent;
+import com.atharion.commons.terminable.Terminable;
+import com.atharion.commons.world.Position;
+import org.bukkit.entity.Player;
 
-import com.atharion.commons.event.ProtocolSubscription;
-import org.bukkit.plugin.Plugin;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-class ProtocolHandlerListImpl implements ProtocolHandlerList {
-    private final ProtocolSubscriptionBuilderImpl builder;
-    private final List<BiConsumer<ProtocolSubscription, ? super PacketEvent>> handlers = new ArrayList<>(1);
+/**
+ * Base interface for holograms.
+ */
+public interface BaseHologram extends Terminable {
 
-    ProtocolHandlerListImpl(@Nonnull ProtocolSubscriptionBuilderImpl builder) {
-        this.builder = builder;
-    }
+    /**
+     * Spawns the hologram
+     */
+    void spawn();
 
-    @Nonnull
-    @Override
-    public ProtocolHandlerList biConsumer(@Nonnull BiConsumer<ProtocolSubscription, ? super PacketEvent> handler) {
-        Objects.requireNonNull(handler, "handler");
-        this.handlers.add(handler);
-        return this;
-    }
+    /**
+     * Despawns the hologram
+     */
+    void despawn();
 
-    @Nonnull
-    @Override
-    public ProtocolSubscription register() {
-        return new HelperProtocolListener(builder, handlers);
-    }
+    /**
+     * Check if the hologram is currently spawned
+     *
+     * @return true if spawned and active, or false otherwise
+     */
+    boolean isSpawned();
+
+    /**
+     * Updates the position of the hologram and respawns it
+     *
+     * @param position the new position
+     */
+    void updatePosition(@Nonnull Position position);
+
+    /**
+     * Sets a click callback for this hologram
+     *
+     * @param clickCallback the click callback, or null to unregister any existing callback
+     */
+    void setClickCallback(@Nullable Consumer<Player> clickCallback);
+
 }

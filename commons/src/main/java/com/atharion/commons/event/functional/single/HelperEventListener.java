@@ -27,6 +27,7 @@ package com.atharion.commons.event.functional.single;
 
 import com.atharion.commons.event.SingleSubscription;
 
+import com.atharion.commons.utils.function.LoaderUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventPriority;
@@ -73,12 +74,12 @@ class HelperEventListener<T extends Event> implements SingleSubscription<T>, Eve
         this.handlers = handlers.toArray(new BiConsumer[handlers.size()]);
     }
 
-    void register(Plugin plugin) {
-        Bukkit.getPluginManager().registerEvent(this.eventClass, this, this.priority, this, plugin, false);
+    void register() {
+        Bukkit.getPluginManager().registerEvent(this.eventClass, this, this.priority, this, LoaderUtils.getPlugin(), false);
     }
 
     @Override
-    public void execute(Listener listener, Event event) {
+    public void execute(@Nonnull Listener listener, Event event) {
         // check we actually want this event
         if (event.getClass() != this.eventClass) {
             return;

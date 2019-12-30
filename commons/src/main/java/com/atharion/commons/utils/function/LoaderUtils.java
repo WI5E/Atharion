@@ -23,39 +23,52 @@
  *  SOFTWARE.
  */
 
-package com.atharion.commons.event.functional.protocol;
+package com.atharion.commons.utils.function;
 
-import com.comphenix.protocol.events.PacketEvent;
+import com.atharion.commons.CompactPlugin;
 
-import com.atharion.commons.event.ProtocolSubscription;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.function.BiConsumer;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nonnull;
 
-class ProtocolHandlerListImpl implements ProtocolHandlerList {
-    private final ProtocolSubscriptionBuilderImpl builder;
-    private final List<BiConsumer<ProtocolSubscription, ? super PacketEvent>> handlers = new ArrayList<>(1);
+/**
+ * Provides the instance which loaded the helper classes into the server
+ */
+public final class LoaderUtils {
+    private static CompactPlugin plugin = null;
+    private static Thread mainThread = null;
 
-    ProtocolHandlerListImpl(@Nonnull ProtocolSubscriptionBuilderImpl builder) {
-        this.builder = builder;
+    @Nonnull
+    public static synchronized CompactPlugin getPlugin() {
+        if (plugin == null) {
+            Plugin pl = JavaPlugin.getProvidingPlugin(LoaderUtils.class);
+            if (!(pl instanceof CompactPlugin)) {
+                throw new IllegalStateException("plugin does not implement CompactPlugin: " + pl.getClass().getName());
+            }
+            plugin = (CompactPlugin) pl;
+
+            setup();
+        }
+
+        return plugin;
     }
 
     @Nonnull
-    @Override
-    public ProtocolHandlerList biConsumer(@Nonnull BiConsumer<ProtocolSubscription, ? super PacketEvent> handler) {
-        Objects.requireNonNull(handler, "handler");
-        this.handlers.add(handler);
-        return this;
+    public static synchronized Thread getMainThread() {
+        return mainThread == null ? Bukkit.isPrimaryThread() ? mainThread = Thread.currentThread() : mainThread : mainThread;
     }
 
-    @Nonnull
-    @Override
-    public ProtocolSubscription register() {
-        return new HelperProtocolListener(builder, handlers);
+    // performs an intial setup for global handlers
+    private static void setup() {
+
+        // cache main thread in this class
+        getMainThread();
     }
+
+    private LoaderUtils() {
+        throw new UnsupportedOperationException("This class cannot be instantiated");
+    }
+
 }

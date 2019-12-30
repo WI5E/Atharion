@@ -23,39 +23,21 @@
  *  SOFTWARE.
  */
 
-package com.atharion.commons.event.functional.protocol;
-
-import com.comphenix.protocol.events.PacketEvent;
-
-import com.atharion.commons.event.ProtocolSubscription;
-import org.bukkit.plugin.Plugin;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.function.BiConsumer;
+package com.atharion.commons.scoreboard;
 
 import javax.annotation.Nonnull;
 
-class ProtocolHandlerListImpl implements ProtocolHandlerList {
-    private final ProtocolSubscriptionBuilderImpl builder;
-    private final List<BiConsumer<ProtocolSubscription, ? super PacketEvent>> handlers = new ArrayList<>(1);
+/**
+ * An object which provides {@link Scoreboard} instances.
+ */
+public interface ScoreboardProvider {
 
-    ProtocolHandlerListImpl(@Nonnull ProtocolSubscriptionBuilderImpl builder) {
-        this.builder = builder;
-    }
-
+    /**
+     * Gets the scoreboard provided by this instance.
+     *
+     * @return the scoreboard
+     */
     @Nonnull
-    @Override
-    public ProtocolHandlerList biConsumer(@Nonnull BiConsumer<ProtocolSubscription, ? super PacketEvent> handler) {
-        Objects.requireNonNull(handler, "handler");
-        this.handlers.add(handler);
-        return this;
-    }
+    Scoreboard getScoreboard();
 
-    @Nonnull
-    @Override
-    public ProtocolSubscription register() {
-        return new HelperProtocolListener(builder, handlers);
-    }
 }
