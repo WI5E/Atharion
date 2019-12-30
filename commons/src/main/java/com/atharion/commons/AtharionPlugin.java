@@ -51,6 +51,6 @@ public class AtharionPlugin extends JavaPlugin implements CompactPlugin {
     @Nonnull
     @Override
     public <T extends TerminableModule> T bindModule(@Nonnull T module) {
-        this.compositeTerminable.bindModule(module);
+        return this.compositeTerminable.bindModule(module);
     }
 }
