@@ -25,9 +25,9 @@
 
 package com.atharion.commons.event;
 
+import com.atharion.commons.event.functional.merged.MergedSubscriptionBuilder;
 import com.atharion.commons.event.functional.single.SingleSubscriptionBuilder;
 import com.google.common.reflect.TypeToken;
-
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventPriority;
@@ -67,12 +67,83 @@ public final class Events {
     }
 
     /**
+     * Makes a MergedSubscriptionBuilder for a given super type
+     *
+     * @param handledClass the super type of the event handler
+     * @param <T>          the super type class
+     * @return a {@link MergedSubscriptionBuilder} to construct the event handler
+     */
+    @Nonnull
+    public static <T> MergedSubscriptionBuilder<T> merge(@Nonnull Class<T> handledClass) {
+        return MergedSubscriptionBuilder.newBuilder(handledClass);
+    }
+
+    /**
+     * Makes a MergedSubscriptionBuilder for a given super type
+     *
+     * @param type the super type of the event handler
+     * @param <T>  the super type class
+     * @return a {@link MergedSubscriptionBuilder} to construct the event handler
+     */
+    @Nonnull
+    public static <T> MergedSubscriptionBuilder<T> merge(@Nonnull TypeToken<T> type) {
+        return MergedSubscriptionBuilder.newBuilder(type);
+    }
+
+    /**
+     * Makes a MergedSubscriptionBuilder for a super event class
+     *
+     * @param superClass   the abstract super event class
+     * @param eventClasses the event classes to be bound to
+     * @param <S>          the super class type
+     * @return a {@link MergedSubscriptionBuilder} to construct the event handler
+     */
+    @Nonnull
+    @SafeVarargs
+    public static <S extends Event> MergedSubscriptionBuilder<S> merge(@Nonnull Class<S> superClass, @Nonnull Class<? extends S>... eventClasses) {
+        return MergedSubscriptionBuilder.newBuilder(superClass, eventClasses);
+    }
+
+    /**
+     * Makes a MergedSubscriptionBuilder for a super event class
+     *
+     * @param superClass   the abstract super event class
+     * @param priority     the priority to listen at
+     * @param eventClasses the event classes to be bound to
+     * @param <S>          the super class type
+     * @return a {@link MergedSubscriptionBuilder} to construct the event handler
+     */
+    @Nonnull
+    @SafeVarargs
+    public static <S extends Event> MergedSubscriptionBuilder<S> merge(@Nonnull Class<S> superClass, @Nonnull EventPriority priority, @Nonnull Class<? extends S>... eventClasses) {
+        return MergedSubscriptionBuilder.newBuilder(superClass, priority, eventClasses);
+    }
+
+    /**
      * Submit the event on the current thread
      *
      * @param event the event to call
      */
     public static void call(@Nonnull Event event) {
         Bukkit.getPluginManager().callEvent(event);
+    }
+
+    /**
+     * Submit the event on a new async thread.
+     *
+     * @param event the event to call
+     */
+    public static void callAsync(@Nonnull Event event) {
+        Schedulers.async().run(() -> call(event));
+    }
+
+    /**
+     * Submit the event on the main server thread.
+     *
+     * @param event the event to call
+     */
+    public static void callSync(@Nonnull Event event) {
+        Schedulers.sync().run(() -> call(event));
     }
 
     /**
