@@ -31,7 +31,12 @@ import com.atharion.commons.utils.function.Delegates;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.concurrent.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -1318,7 +1323,7 @@ public interface Promise<V> extends Future<V>, Terminable {
             case SYNC:
                 return exceptionallySync(fn);
             case ASYNC:
-                return exceptionallySync(fn);
+                return exceptionallyAsync(fn);
             default:
                 throw new AssertionError();
         }

@@ -26,7 +26,6 @@
 package com.atharion.commons.event.functional.single;
 
 import com.atharion.commons.event.SingleSubscription;
-
 import com.atharion.commons.utils.function.LoaderUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
@@ -34,8 +33,8 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.EventExecutor;
-import org.bukkit.plugin.Plugin;
 
+import javax.annotation.Nonnull;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -43,8 +42,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
-
-import javax.annotation.Nonnull;
 
 class HelperEventListener<T extends Event> implements SingleSubscription<T>, EventExecutor, Listener {
     private final Class<T> eventClass;

@@ -26,7 +26,6 @@
 package com.atharion.commons.command.functional;
 
 import com.atharion.commons.command.Command;
-import com.atharion.commons.command.CommandInterruptException;
 import com.atharion.commons.command.context.CommandContext;
 import org.bukkit.command.CommandSender;
 
@@ -44,6 +43,6 @@ public interface FunctionalCommandHandler<T extends CommandSender>  {
      *
      * @param c the command context
      */
-    void handle(CommandContext<T> c) throws CommandInterruptException;
+    void handle(CommandContext<T> c);
 
 }

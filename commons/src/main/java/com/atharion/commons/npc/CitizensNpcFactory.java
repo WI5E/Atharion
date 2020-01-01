@@ -73,7 +73,7 @@ public class CitizensNpcFactory implements NpcFactory {
 
     private void init() {
         // create npc registry
-        this.npcRegistry = CitizensAPI.createNamedNPCRegistry("helper", new MemoryNPCDataStore());
+        this.npcRegistry = CitizensAPI.createNamedNPCRegistry("atharion", new MemoryNPCDataStore());
 
         // ensure our trait is registered
         registerTrait();

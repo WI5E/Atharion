@@ -28,7 +28,6 @@ package com.atharion.commons.world;
 import com.atharion.commons.serialize.GsonSerializable;
 import com.atharion.commons.serialize.JsonBuilder;
 import com.google.common.base.Preconditions;
-import com.google.common.base.Supplier;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import org.bukkit.Bukkit;
@@ -36,15 +35,13 @@ import org.bukkit.Chunk;
 import org.bukkit.World;
 import org.bukkit.block.BlockFace;
 
-import java.util.ArrayList;
+import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
-import javax.annotation.Nonnull;
+import java.util.function.Supplier;
 
 /**
  * An immutable and serializable chuck location object

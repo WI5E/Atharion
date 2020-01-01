@@ -25,25 +25,21 @@
 
 package com.atharion.commons.event.functional.single;
 
-import com.atharion.commons.utils.function.Delegates;
-import com.google.common.base.Preconditions;
-
 import com.atharion.commons.event.SingleSubscription;
 import com.atharion.commons.event.functional.ExpiryTestStage;
 import com.atharion.commons.event.functional.SubscriptionBuilder;
-
+import com.atharion.commons.utils.function.Delegates;
+import com.google.common.base.Preconditions;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventPriority;
-import org.bukkit.plugin.Plugin;
 
+import javax.annotation.Nonnull;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
-
-import javax.annotation.Nonnull;
 
 /**
  * Functional builder for {@link SingleSubscription}s.

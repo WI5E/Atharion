@@ -26,16 +26,13 @@
 package com.atharion.commons.event.functional.single;
 
 import com.atharion.commons.event.SingleSubscription;
-
 import org.bukkit.event.Event;
-import org.bukkit.plugin.Plugin;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.BiConsumer;
-
-import javax.annotation.Nonnull;
 
 class SingleHandlerListImpl<T extends Event> implements SingleHandlerList<T> {
     private final SingleSubscriptionBuilderImpl<T> builder;

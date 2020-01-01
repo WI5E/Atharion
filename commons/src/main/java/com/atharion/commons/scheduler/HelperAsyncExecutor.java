@@ -32,7 +32,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.WeakHashMap;
-import java.util.concurrent.*;
+import java.util.concurrent.AbstractExecutorService;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -73,17 +79,20 @@ final class HelperAsyncExecutor extends AbstractExecutorService implements Sched
         this.taskService.execute(HelperExecutors.wrapRunnable(runnable));
     }
 
+    @Nonnull
     @Override
     public ScheduledFuture<?> schedule(@Nonnull Runnable command, long delay, @Nonnull TimeUnit unit) {
         Runnable delegate = HelperExecutors.wrapRunnable(command);
         return consumeTask(this.timerExecutionService.schedule(() -> this.taskService.execute(delegate), delay, unit));
     }
 
+    @Nonnull
     @Override
     public <V> ScheduledFuture<V> schedule(@Nonnull Callable<V> callable, long delay, @Nonnull TimeUnit unit) {
         throw new UnsupportedOperationException();
     }
 
+    @Nonnull
     @Override
     public ScheduledFuture<?> scheduleAtFixedRate(@Nonnull Runnable command, long initialDelay, long period, @Nonnull TimeUnit unit) {
         return consumeTask(this.timerExecutionService.scheduleAtFixedRate(new FixedRateWorker(HelperExecutors.wrapRunnable(command)), initialDelay, period, unit));

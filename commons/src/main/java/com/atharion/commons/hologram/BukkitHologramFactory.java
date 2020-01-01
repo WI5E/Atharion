@@ -32,7 +32,6 @@ import com.atharion.commons.utils.text.Text;
 import com.atharion.commons.world.Position;
 import com.google.common.base.Preconditions;
 import com.google.gson.JsonObject;
-
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
@@ -41,16 +40,14 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
-import org.bukkit.plugin.Plugin;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class BukkitHologramFactory implements HologramFactory {
 

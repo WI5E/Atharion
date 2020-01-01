@@ -25,15 +25,14 @@
 
 package com.atharion.commons.event.functional.protocol;
 
+import com.atharion.commons.event.ProtocolSubscription;
+import com.atharion.commons.packet.Protocol;
 import com.atharion.commons.utils.function.LoaderUtils;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 
-import com.atharion.commons.event.ProtocolSubscription;
-import com.atharion.commons.packet.Protocol;
-import org.bukkit.plugin.Plugin;
-
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -41,8 +40,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
-
-import javax.annotation.Nonnull;
 
 class HelperProtocolListener extends PacketAdapter implements ProtocolSubscription {
     private final Set<PacketType> types;

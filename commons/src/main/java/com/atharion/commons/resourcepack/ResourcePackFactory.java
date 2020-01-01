@@ -17,7 +17,6 @@ public interface ResourcePackFactory {
          * @param lines the response content
          * @return the response
          */
-        @Nonnull
         void handleResponse(@Nonnull Response response);
     }
 
@@ -25,6 +24,6 @@ public interface ResourcePackFactory {
         SUCCESSFULLY_LOADED,
         DECLINED,
         FAILED_DOWNLOAD,
-        ACCEPTED;
+        ACCEPTED
     }
 }

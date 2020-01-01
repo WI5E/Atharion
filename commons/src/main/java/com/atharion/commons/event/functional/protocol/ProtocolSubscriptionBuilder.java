@@ -25,6 +25,9 @@
 
 package com.atharion.commons.event.functional.protocol;
 
+import com.atharion.commons.event.ProtocolSubscription;
+import com.atharion.commons.event.functional.ExpiryTestStage;
+import com.atharion.commons.event.functional.SubscriptionBuilder;
 import com.atharion.commons.utils.function.Delegates;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.ListenerPriority;
@@ -32,19 +35,13 @@ import com.comphenix.protocol.events.PacketEvent;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableSet;
 
-import com.atharion.commons.event.ProtocolSubscription;
-import com.atharion.commons.event.functional.ExpiryTestStage;
-import com.atharion.commons.event.functional.SubscriptionBuilder;
-import org.bukkit.plugin.Plugin;
-
+import javax.annotation.Nonnull;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
-
-import javax.annotation.Nonnull;
 
 /**
  * Functional builder for {@link ProtocolSubscription}s.

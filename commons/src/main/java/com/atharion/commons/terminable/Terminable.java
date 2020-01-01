@@ -25,10 +25,6 @@
 
 package com.atharion.commons.terminable;
 
-import com.atharion.commons.terminable.module.TerminableModule;
-
-import javax.annotation.Nonnull;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 

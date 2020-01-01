@@ -25,6 +25,7 @@
 
 package com.atharion.commons.event;
 
+import com.atharion.commons.Schedulers;
 import com.atharion.commons.event.functional.merged.MergedSubscriptionBuilder;
 import com.atharion.commons.event.functional.single.SingleSubscriptionBuilder;
 import com.google.common.reflect.TypeToken;

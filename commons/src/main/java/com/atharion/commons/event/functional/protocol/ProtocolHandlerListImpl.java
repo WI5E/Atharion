@@ -25,17 +25,14 @@
 
 package com.atharion.commons.event.functional.protocol;
 
+import com.atharion.commons.event.ProtocolSubscription;
 import com.comphenix.protocol.events.PacketEvent;
 
-import com.atharion.commons.event.ProtocolSubscription;
-import org.bukkit.plugin.Plugin;
-
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.BiConsumer;
-
-import javax.annotation.Nonnull;
 
 class ProtocolHandlerListImpl implements ProtocolHandlerList {
     private final ProtocolSubscriptionBuilderImpl builder;

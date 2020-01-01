@@ -32,6 +32,8 @@ import com.atharion.commons.utils.function.LoaderUtils;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+import javax.annotation.Nonnull;
+
 /**
  * An abstract implementation of {@link Command} and {@link CommandExecutor}
  */
@@ -42,7 +44,7 @@ public abstract class AbstractCommand implements Command, CommandExecutor {
     protected String descritpion;
 
     @Override
-    public void register(String... aliases) {
+    public void register(@Nonnull String... aliases) {
         LoaderUtils.getPlugin().registerCommand(this, permission, permissionMessasge, descritpion, aliases);
     }
 
@@ -52,7 +54,7 @@ public abstract class AbstractCommand implements Command, CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
+    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull org.bukkit.command.Command command, @Nonnull String label, @Nonnull String[] args) {
         CommandContext<CommandSender> context = new ImmutableCommandContext<>(sender, label, args);
         try {
             call(context);

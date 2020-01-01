@@ -30,17 +30,14 @@ import com.atharion.commons.serialize.JsonBuilder;
 import com.google.common.base.Preconditions;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 
-import java.util.Objects;
-
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import java.util.Objects;
 
 /**
  * An immutable and serializable block location object

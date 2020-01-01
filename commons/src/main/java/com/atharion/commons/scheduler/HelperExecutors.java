@@ -29,6 +29,7 @@ import com.atharion.commons.utils.function.Delegate;
 import com.atharion.commons.utils.function.LoaderUtils;
 import org.bukkit.Bukkit;
 
+import javax.annotation.Nonnull;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.Consumer;
@@ -61,14 +62,14 @@ public final class HelperExecutors {
 
     private static final class BukkitSyncExecutor implements Executor {
         @Override
-        public void execute(Runnable runnable) {
+        public void execute(@Nonnull Runnable runnable) {
             Bukkit.getScheduler().scheduleSyncDelayedTask(LoaderUtils.getPlugin(), wrapRunnable(runnable));
         }
     }
 
     private static final class BukkitAsyncExecutor implements Executor {
         @Override
-        public void execute(Runnable runnable) {
+        public void execute(@Nonnull Runnable runnable) {
             Bukkit.getScheduler().runTaskAsynchronously(LoaderUtils.getPlugin(), wrapRunnable(runnable));
         }
     }
