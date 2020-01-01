@@ -23,32 +23,42 @@
  *  SOFTWARE.
  */
 
-package com.atharion.commons.terminable.composite;
+package com.atharion.commons.command;
 
-import java.util.Collections;
-import java.util.List;
+import com.atharion.commons.command.context.CommandContext;
+import com.atharion.commons.terminable.Terminable;
+import com.atharion.commons.terminable.TerminableConsumer;
+
+import javax.annotation.Nonnull;
 
 /**
- * Exception thrown to propagate exceptions thrown by
- * {@link CompositeTerminable#close()}.
+ * Represents a command
  */
-public class CompositeClosingException extends Exception {
-    private final List<? extends Throwable> causes;
+public interface Command extends Terminable {
 
-    public CompositeClosingException(List<? extends Throwable> causes) {
-        super("Exception(s) occurred whilst closing: " + causes.toString());
-        if (causes.isEmpty()) {
-            throw new IllegalArgumentException("No causes");
-        }
-        this.causes = Collections.unmodifiableList(causes);
+    /**
+     * Registers this command with the server, via the given plugin instance
+     *
+     * @param aliases the aliases for the command
+     */
+    void register(@Nonnull String... aliases);
+
+    /**
+     * Registers this command with the server, via the given plugin instance, and then binds it with the composite terminable.
+     *
+     * @param consumer the terminable consumer to bind with
+     * @param aliases the aliases for the command
+     */
+    default void registerAndBind(@Nonnull TerminableConsumer consumer, @Nonnull String... aliases) {
+        register(aliases);
+        bindWith(consumer);
     }
 
-    public List<? extends Throwable> getCauses() {
-        return this.causes;
-    }
+    /**
+     * Calls the command handler
+     *
+     * @param context the contexts for the command
+     */
+    void call(@Nonnull CommandContext<?> context) throws CommandInterruptException;
 
-    public void printAllStackTraces() {
-        this.printStackTrace();
-        this.causes.forEach(Throwable::printStackTrace);
-    }
 }

@@ -23,26 +23,38 @@
  *  SOFTWARE.
  */
 
-package com.atharion.commons.scoreboard;
+package com.atharion.commons.command.functional;
 
-import com.atharion.commons.plugin.CompactPlugin;
+import com.atharion.commons.command.AbstractCommand;
+import com.atharion.commons.command.CommandInterruptException;
+import com.atharion.commons.command.context.CommandContext;
+import com.google.common.collect.ImmutableList;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.function.Predicate;
 
-/**
- * Implementation of {@link ScoreboardProvider} for {@link PacketScoreboard}s.
- */
-public final class PacketScoreboardProvider implements ScoreboardProvider {
-    private final CompactPlugin plugin;
-    private PacketScoreboard scoreboard = null;
+class FunctionalCommand extends AbstractCommand {
+    private final ImmutableList<Predicate<CommandContext<?>>> predicates;
+    private final FunctionalCommandHandler handler;
 
-    public PacketScoreboardProvider(CompactPlugin plugin) {
-        this.plugin = plugin;
+    FunctionalCommand(ImmutableList<Predicate<CommandContext<?>>> predicates, FunctionalCommandHandler handler, @Nullable String permission, @Nullable String permissionMessage, @Nullable String description) {
+        this.predicates = predicates;
+        this.handler = handler;
+        this.permission = permission;
+        this.permissionMessasge = permissionMessage;
+        this.descritpion = description;
     }
 
-    @Nonnull
     @Override
-    public synchronized PacketScoreboard getScoreboard() {
-        return this.scoreboard == null ? this.scoreboard = new PacketScoreboard(this.plugin) : this.scoreboard;
+    public void call(@Nonnull CommandContext<?> context) throws CommandInterruptException {
+        for (Predicate<CommandContext<?>> predicate : this.predicates) {
+            if (!predicate.test(context)) {
+                return;
+            }
+        }
+
+        //noinspection unchecked
+        this.handler.handle(context);
     }
 }

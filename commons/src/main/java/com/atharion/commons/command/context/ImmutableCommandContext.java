@@ -23,51 +23,57 @@
  *  SOFTWARE.
  */
 
-package com.atharion.commons.utils.function;
+package com.atharion.commons.command.context;
 
-import com.atharion.commons.plugin.CompactPlugin;
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.java.JavaPlugin;
+import com.atharion.commons.command.argument.Argument;
+import com.atharion.commons.command.argument.SimpleArgument;
+import com.google.common.collect.ImmutableList;
+import org.bukkit.command.CommandSender;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-/**
- * Provides the instance which loaded the helper classes into the server
- */
-public final class LoaderUtils {
-    private static CompactPlugin plugin = null;
-    private static Thread mainThread = null;
+public class ImmutableCommandContext<T extends CommandSender> implements CommandContext<T> {
+    private final T sender;
+    private final String label;
+    private final ImmutableList<String> args;
+
+    public ImmutableCommandContext(T sender, String label, String[] args) {
+        this.sender = sender;
+        this.label = label;
+        this.args = ImmutableList.copyOf(args);
+    }
 
     @Nonnull
-    public static synchronized CompactPlugin getPlugin() {
-        if (plugin == null) {
-            Plugin pl = JavaPlugin.getProvidingPlugin(LoaderUtils.class);
-            if (!(pl instanceof CompactPlugin)) {
-                throw new IllegalStateException("plugin does not implement CompactPlugin: " + pl.getClass().getName());
-            }
-            plugin = (CompactPlugin) pl;
+    @Override
+    public T sender() {
+        return this.sender;
+    }
 
-            setup();
+    @Nonnull
+    @Override
+    public ImmutableList<String> args() {
+        return this.args;
+    }
+
+    @Nonnull
+    @Override
+    public Argument arg(int index) {
+        return new SimpleArgument(index, rawArg(index));
+    }
+
+    @Nullable
+    @Override
+    public String rawArg(int index) {
+        if (index < 0 || index >= this.args.size()) {
+            return null;
         }
-
-        return plugin;
+        return this.args.get(index);
     }
 
     @Nonnull
-    public static synchronized Thread getMainThread() {
-        return mainThread == null ? Bukkit.isPrimaryThread() ? mainThread = Thread.currentThread() : mainThread : mainThread;
+    @Override
+    public String label() {
+        return this.label;
     }
-
-    // performs an intial setup for global handlers
-    private static void setup() {
-
-        // cache main thread in this class
-        getMainThread();
-    }
-
-    private LoaderUtils() {
-        throw new UnsupportedOperationException("This class cannot be instantiated");
-    }
-
 }

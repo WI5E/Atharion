@@ -23,32 +23,27 @@
  *  SOFTWARE.
  */
 
-package com.atharion.commons.terminable.composite;
+package com.atharion.commons.command.functional;
 
-import java.util.Collections;
-import java.util.List;
+import com.atharion.commons.command.Command;
+import com.atharion.commons.command.CommandInterruptException;
+import com.atharion.commons.command.context.CommandContext;
+import org.bukkit.command.CommandSender;
 
 /**
- * Exception thrown to propagate exceptions thrown by
- * {@link CompositeTerminable#close()}.
+ * Represents a handler for a {@link Command}
+ *
+ * @param <T> the sender type
  */
-public class CompositeClosingException extends Exception {
-    private final List<? extends Throwable> causes;
+@FunctionalInterface
 
-    public CompositeClosingException(List<? extends Throwable> causes) {
-        super("Exception(s) occurred whilst closing: " + causes.toString());
-        if (causes.isEmpty()) {
-            throw new IllegalArgumentException("No causes");
-        }
-        this.causes = Collections.unmodifiableList(causes);
-    }
+public interface FunctionalCommandHandler<T extends CommandSender>  {
 
-    public List<? extends Throwable> getCauses() {
-        return this.causes;
-    }
+    /**
+     * Executes the handler using the given command context
+     *
+     * @param c the command context
+     */
+    void handle(CommandContext<T> c) throws CommandInterruptException;
 
-    public void printAllStackTraces() {
-        this.printStackTrace();
-        this.causes.forEach(Throwable::printStackTrace);
-    }
 }

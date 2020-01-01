@@ -83,7 +83,7 @@ public class PacketSignPromptFactory implements SignPromptFactory {
         final AtomicBoolean active = new AtomicBoolean(true);
 
         Protocol.subscribe(PacketType.Play.Client.UPDATE_SIGN)
-                .filter(e -> e.getPlayer().getUniqueId().equals(player.getUniqueId()))
+                .filter(e -> e.getPlayer().equals(player))
                 .biHandler((sub, event) -> {
                     if (!active.getAndSet(false)) {
                         return;

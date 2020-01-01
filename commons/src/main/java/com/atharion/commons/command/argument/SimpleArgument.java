@@ -23,32 +23,35 @@
  *  SOFTWARE.
  */
 
-package com.atharion.commons.terminable.composite;
+package com.atharion.commons.command.argument;
 
-import java.util.Collections;
-import java.util.List;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Optional;
 
-/**
- * Exception thrown to propagate exceptions thrown by
- * {@link CompositeTerminable#close()}.
- */
-public class CompositeClosingException extends Exception {
-    private final List<? extends Throwable> causes;
+public class SimpleArgument implements Argument {
+    protected final int index;
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+    protected final Optional<String> value;
 
-    public CompositeClosingException(List<? extends Throwable> causes) {
-        super("Exception(s) occurred whilst closing: " + causes.toString());
-        if (causes.isEmpty()) {
-            throw new IllegalArgumentException("No causes");
-        }
-        this.causes = Collections.unmodifiableList(causes);
+    public SimpleArgument(int index, @Nullable String value) {
+        this.index = index;
+        this.value = Optional.ofNullable(value);
     }
 
-    public List<? extends Throwable> getCauses() {
-        return this.causes;
+    @Override
+    public int index() {
+        return this.index;
     }
 
-    public void printAllStackTraces() {
-        this.printStackTrace();
-        this.causes.forEach(Throwable::printStackTrace);
+    @Nonnull
+    @Override
+    public Optional<String> value() {
+        return this.value;
+    }
+
+    @Override
+    public boolean isPresent() {
+        return this.value.isPresent();
     }
 }

@@ -49,7 +49,7 @@ import java.util.function.Supplier;
  *
  * @param <V> the result type
  */
-final class HelperPromise<V> implements Promise<V> {
+public class HelperPromise<V> implements Promise<V> {
     private static final Consumer<Throwable> EXCEPTION_CONSUMER = Throwable::printStackTrace;
 
     @Nonnull

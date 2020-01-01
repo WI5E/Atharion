@@ -23,26 +23,42 @@
  *  SOFTWARE.
  */
 
-package com.atharion.commons.scoreboard;
+package com.atharion.commons.command;
 
-import com.atharion.commons.plugin.CompactPlugin;
-
-import javax.annotation.Nonnull;
+import com.atharion.commons.command.context.CommandContext;
+import com.atharion.commons.command.context.ImmutableCommandContext;
+import com.atharion.commons.utils.command.CommandMaps;
+import com.atharion.commons.utils.function.LoaderUtils;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
 
 /**
- * Implementation of {@link ScoreboardProvider} for {@link PacketScoreboard}s.
+ * An abstract implementation of {@link Command} and {@link CommandExecutor}
  */
-public final class PacketScoreboardProvider implements ScoreboardProvider {
-    private final CompactPlugin plugin;
-    private PacketScoreboard scoreboard = null;
+public abstract class AbstractCommand implements Command, CommandExecutor {
 
-    public PacketScoreboardProvider(CompactPlugin plugin) {
-        this.plugin = plugin;
+    protected String permission;
+    protected String permissionMessasge;
+    protected String descritpion;
+
+    @Override
+    public void register(String... aliases) {
+        LoaderUtils.getPlugin().registerCommand(this, permission, permissionMessasge, descritpion, aliases);
     }
 
-    @Nonnull
     @Override
-    public synchronized PacketScoreboard getScoreboard() {
-        return this.scoreboard == null ? this.scoreboard = new PacketScoreboard(this.plugin) : this.scoreboard;
+    public void close() {
+        CommandMaps.unregisterCommand(this);
+    }
+
+    @Override
+    public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
+        CommandContext<CommandSender> context = new ImmutableCommandContext<>(sender, label, args);
+        try {
+            call(context);
+        } catch (CommandInterruptException e) {
+            e.getAction().accept(context.sender());
+        }
+        return true;
     }
 }

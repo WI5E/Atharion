@@ -25,23 +25,20 @@
 
 package com.atharion.commons.scoreboard;
 
-import com.atharion.commons.CompactPlugin;
 import com.atharion.commons.event.Events;
-import com.atharion.commons.utils.player.Players;
+import com.atharion.commons.plugin.CompactPlugin;
 import com.google.common.base.Preconditions;
-
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scoreboard.DisplaySlot;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * Implements {@link Scoreboard} using ProtocolLib.
