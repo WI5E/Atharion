@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="557141e1-90a1-4f9b-93c3-b7947df3a52d" name="Default Changelist" comment="Reimplemented scheduling and concurrency features">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/quests/AbstractQuest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/quests/Quest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/quests/registry/QuestRegistry.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/quests/registry/SimpleQuestRegistry.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/quests/requirements/Requirement.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/quests/requirements/TimedRequirement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/DummyPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/DummyPlugin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/Services.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/Services.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/command/AbstractCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/command/AbstractCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/command/functional/FunctionalCommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/command/functional/FunctionalCommandHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/concurrent/promise/Promise.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/concurrent/promise/Promise.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/event/Events.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/event/Events.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/event/functional/protocol/HelperProtocolListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/event/functional/protocol/HelperProtocolListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/event/functional/protocol/ProtocolHandlerListImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/event/functional/protocol/ProtocolHandlerListImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/event/functional/protocol/ProtocolSubscriptionBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/event/functional/protocol/ProtocolSubscriptionBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/event/functional/single/HelperEventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/event/functional/single/HelperEventListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/event/functional/single/SingleHandlerListImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/event/functional/single/SingleHandlerListImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/event/functional/single/SingleSubscriptionBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/event/functional/single/SingleSubscriptionBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/hologram/BukkitHologramFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/hologram/BukkitHologramFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/hologram/individual/PacketIndividualHologramFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/hologram/individual/PacketIndividualHologramFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/npc/CitizensNpcFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/npc/CitizensNpcFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/resourcepack/ResourcePackFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/resourcepack/ResourcePackFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/scheduler/HelperAsyncExecutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/scheduler/HelperAsyncExecutor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/scheduler/HelperExecutors.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/scheduler/HelperExecutors.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/terminable/Terminable.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/terminable/Terminable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/world/BlockPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/world/BlockPosition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/world/ChunkPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/commons/src/main/java/com/atharion/commons/world/ChunkPosition.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Utility" />
+        <option value="Class" />
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1VaYylc2EhNLfC302TOcyuG9rbr" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="557141e1-90a1-4f9b-93c3-b7947df3a52d" name="Default Changelist" comment="" />
+      <created>1577492929375</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1577492929375</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Initial Commit">
+      <created>1577497156117</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1577497156117</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Add StateSeries &amp; StateSwitch">
+      <created>1577688628017</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1577688628017</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added StagedFutures">
+      <created>1577735252590</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1577735252591</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added random &amp; player utility">
+      <created>1577738779759</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1577738779759</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added event system, terminable, and protocollib support">
+      <created>1577741149404</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1577741149404</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Removed plugin dependency for events, added holograms, added scoreboards added world objects">
+      <created>1577749877102</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1577749877102</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Fix module binding">
+      <created>1577750295618</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1577750295618</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Reimplemented scheduling and concurrency features, sign prompts, and citizens support">
+      <created>1577824898168</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1577824898168</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Implemented commands, resource packs, plugin implementation, more utilities">
+      <created>1577845713112</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1577845713112</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="1">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="structure">
+                    <value>
+                      <list>
+                        <option value="dir:C:/Users/angel/IdeaProjects/atharion/commons/src/main/java/com/atharion/commons/utils" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="OPEN_TABS">
+      <set>
+        <option value="1" />
+      </set>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_NEW_TODO" value="false" />
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Initial Commit" />
+    <MESSAGE value="Add StateSeries &amp; StateSwitch" />
+    <MESSAGE value="Added StagedFutures" />
+    <MESSAGE value="Added player utility" />
+    <MESSAGE value="Added random &amp; player utility" />
+    <MESSAGE value="Added event system, terminable, and protocollib support" />
+    <MESSAGE value="Removed plugin dependency for events, added holograms, added scoreboards added world objects" />
+    <MESSAGE value="Fix module binding" />
+    <MESSAGE value="Reimplemented scheduling and concurrency features" />
+    <MESSAGE value="Reimplemented scheduling and concurrency features, sign prompts, and citizens support" />
+    <MESSAGE value="Implemented commands, resource packs, plugin implementation, more utilities" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented commands, resource packs, plugin implementation, more utilities" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="275" y="21" key="#Notifications" timestamp="1577748993756">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="275" y="21" key="#Notifications/0.0.1366.728@0.0.1366.728" timestamp="1577748993756" />
+    <state x="275" y="21" key="#Project_Structure" timestamp="1577766031328">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="275" y="21" key="#Project_Structure/0.0.1366.728@0.0.1366.728" timestamp="1577766031328" />
+    <state x="488" y="72" key="#com.intellij.ide.util.MemberChooser" timestamp="1577865861563">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="488" y="72" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728@0.0.1366.728" timestamp="1577865861563" />
+    <state x="259" y="288" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1577847347043">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="259" y="288" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1366.728@0.0.1366.728" timestamp="1577847347043" />
+    <state x="413" y="110" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1577853912301">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="413" y="110" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.728@0.0.1366.728" timestamp="1577853912301" />
+    <state x="348" y="202" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1577867602293">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="348" y="202" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1366.728@0.0.1366.728" timestamp="1577867602293" />
+    <state x="318" y="0" key="CommitChangelistDialog2" timestamp="1577867931857">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="318" y="0" key="CommitChangelistDialog2/0.0.1366.728@0.0.1366.728" timestamp="1577867931857" />
+    <state x="184" y="5" key="SettingsEditor" timestamp="1577867823154">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="184" y="5" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1577867823154" />
+    <state x="275" y="96" key="Vcs.Push.Dialog.v2" timestamp="1577867937431">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="275" y="96" key="Vcs.Push.Dialog.v2/0.0.1366.728@0.0.1366.728" timestamp="1577867937431" />
+    <state x="378" y="186" key="com.intellij.ide.util.TipDialog" timestamp="1577825445591">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="378" y="186" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1577825445591" />
+    <state x="315" y="66" width="737" height="606" key="find.popup" timestamp="1577847615262">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="315" y="66" width="737" height="606" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1577847615262" />
+    <state x="474" y="257" key="git4idea.ui.GitResetDialog" timestamp="1577497049694">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="474" y="257" key="git4idea.ui.GitResetDialog/0.0.1366.728@0.0.1366.728" timestamp="1577497049694" />
+    <state x="65" y="58" key="new project wizard" timestamp="1577493123177">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="65" y="58" key="new project wizard/0.0.1366.728@0.0.1366.728" timestamp="1577493123177" />
+    <state x="339" y="162" key="run.anything.popup" timestamp="1577858078716">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="339" y="162" key="run.anything.popup/0.0.1366.728@0.0.1366.728" timestamp="1577858078716" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1577857120828">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1577857120828" />
+  </component>
+</project>
