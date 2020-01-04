@@ -1,39 +1,21 @@
-package com.atharion.commons.quests;
+package com.atharion.commons.quests.goal;
 
-import com.atharion.commons.quests.goal.Goal;
 import com.atharion.commons.terminable.composite.CompositeTerminable;
 import com.atharion.commons.terminable.module.TerminableModule;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
 
-public abstract class AbstractQuest implements Quest {
+public abstract class AbstractGoal implements Goal {
 
-    private final CompositeTerminable compositeTerminable = CompositeTerminable.create();
-
-    private String name;
-
-    protected final List<Goal> goals = new ArrayList<>();
+    private CompositeTerminable compositeTerminable = CompositeTerminable.create();
     private double progress;
 
-    public AbstractQuest(@Nonnull String name) {
-        Objects.requireNonNull(name, "name");
-        this.name = name;
-    }
+    private boolean ended;
 
-    protected void addGoal(@Nonnull Goal goal) {
-        Objects.requireNonNull(goal, "goal");
-        this.goals.add(goal);
-    }
-
-    @Nonnull
     @Override
-    public List<Goal> getGoals() {
-        return Collections.unmodifiableList(this.goals);
+    public double getProgress() {
+        return this.progress;
     }
 
     @Nonnull
@@ -60,5 +42,11 @@ public abstract class AbstractQuest implements Quest {
     public void end(@Nonnull Player player) {
         this.onEnd(player);
         this.compositeTerminable.closeAndReportException();
+        this.ended = true;
+    }
+
+    @Override
+    public boolean isCompleted() {
+        return this.ended;
     }
 }

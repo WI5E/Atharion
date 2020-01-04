@@ -1,58 +1,95 @@
 package com.atharion.commons.quests;
 
-import com.atharion.commons.quests.requirements.Requirement;
-import com.google.gson.reflect.TypeToken;
+import com.atharion.commons.quests.goal.Goal;
+import com.atharion.commons.quests.requirement.Requirement;
+import com.atharion.commons.terminable.TerminableConsumer;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
-public interface Quest {
+public interface Quest extends TerminableConsumer {
 
     /**
-     * The quest name
-     * @return The name
+     * The name of the quest
+     * @return the name
      */
     @Nonnull
     String getName();
 
     /**
-     * Required requests needed to start the quest
-     * @param <T> the quests
-     * @return
+     * The goals that must be finished to finish the quest
+     * @return goals
      */
     @Nonnull
-    default <T extends Quest> Set<TypeToken<T>> getRequiredQuests() {
-        return Collections.emptySet();
+    List<Goal> getGoals();
+
+    /**
+     * The requirements needed to start the quest
+     * @return requirements
+     */
+    @Nonnull
+    List<Requirement> getRequirement();
+
+    /**
+     * Called when the quest is started
+     * @param player target
+     */
+    void onStart(@Nonnull Player player);
+
+    /**
+     * Used to start the quest
+     */
+    default void start(@Nonnull Player player) {
+        this.onStart(player);
     }
 
     /**
-     * Determines if the player can start the quest
-     * @param player
-     * @return can start
+     * Called when the quest is completed
+     * @param player target
      */
-    boolean canStart(@Nonnull Player player);
+    void onEnd(@Nonnull Player player);
 
     /**
-     * The requirements or goals for the quest
-     * @return
+     * Used to end the quest
+     * @param player target
      */
-    @Nonnull
-    List<Requirement> getRequirements();
+    default void end(@Nonnull Player player) {
+        this.onEnd(player);
+    }
 
     /**
-     * Determines if the quest is ready to end
-     * @param player
-     * @return ready to end
+     * Called when the quest is updated in some way
+     * @param player target
+     * @param response update response
      */
-    default boolean isReadyToEnd(@Nonnull Player player) {
-        for (Requirement requirement : this.getRequirements()) {
-            if (!requirement.isReadyToEnd(player)) {
-                return false;
-            }
-        }
-        return true;
+    void onUpdate(@Nonnull Player player, @Nonnull Goal goal, @Nonnull Response response);
+
+    /**
+     * Used to update the quest
+     * @param player target
+     * @param response update response
+     */
+    default void update(@Nonnull Player player, @Nonnull Goal goal, @Nonnull Response response) {
+        this.onUpdate(player, goal, response);
+    }
+
+    /**
+     * The quest's current progress
+     * @return progress (0.0 - 1.0)
+     */
+    double getProgress();
+
+    /**
+     * Checks if the quest has been completed
+     * @return completed
+     */
+    boolean isComplete();
+
+    enum Response {
+        QUEST_STARTED,
+        REQUIREMENT_UPDATED,
+        QUEST_FINISHED,
+        QUEST_CANCELLED
     }
 }

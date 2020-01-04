@@ -1,5 +1,6 @@
 package com.atharion.commons.quests.registry;
 
+import com.atharion.commons.Services;
 import com.atharion.commons.quests.Quest;
 import com.google.common.reflect.TypeToken;
 
@@ -7,6 +8,10 @@ import javax.annotation.Nonnull;
 import java.util.Optional;
 
 public interface QuestRegistry {
+
+    static <T extends Quest> void reg(@Nonnull TypeToken<T> clazz, T quest) {
+        Services.load(QuestRegistry.class).register(clazz, quest);
+    }
 
     @Nonnull
     <T> Optional<T> find(@Nonnull TypeToken<T> type);

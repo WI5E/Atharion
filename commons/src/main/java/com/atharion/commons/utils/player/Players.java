@@ -29,7 +29,12 @@ import com.atharion.commons.concurrent.promise.Promise;
 import com.atharion.commons.utils.text.Text;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Effect;
+import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.command.CommandSender;
@@ -108,6 +113,24 @@ public final class Players {
      */
     public static Stream<Player> stream() {
         return all().stream();
+    }
+
+    /**
+     * Gets the amount of players on the server.
+     *
+     * @return amount of players on the server
+     */
+    public static int count() {
+        return all().size();
+    }
+
+    /**
+     * Checks if any players are on the server.
+     *
+     * @return any players on the server
+     */
+    public static boolean anyOnline() {
+        return count() > 0;
     }
 
     /**
