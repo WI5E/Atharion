@@ -2,11 +2,13 @@ package com.atharion.commons.music;
 
 import com.atharion.commons.Schedulers;
 import com.atharion.commons.concurrent.promise.Promise;
+import com.atharion.commons.event.Events;
+import com.atharion.commons.event.Subscription;
 import com.atharion.commons.music.model.Note;
 import com.atharion.commons.terminable.Terminable;
-import lombok.Setter;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 import javax.annotation.Nonnull;
 import java.util.HashSet;
@@ -15,8 +17,6 @@ import java.util.Set;
 
 public class MusicPlayer implements Terminable {
 
-    @Setter
-    private boolean playing;
     private boolean closed;
 
     private final Song song;
@@ -25,6 +25,7 @@ public class MusicPlayer implements Terminable {
     private final Set<Player> listeners = new HashSet<>();
 
     private Promise<Void> task;
+    private Subscription quitListener;
 
     public MusicPlayer(@Nonnull Song song) {
         Objects.requireNonNull(song, "song");
@@ -32,25 +33,28 @@ public class MusicPlayer implements Terminable {
     }
 
     public synchronized void play() {
-        if (this.isClosed()) {
+        if (this.closed) {
             this.closed = false;
         }
+        if (this.task != null) {
+            return;
+        }
+        this.quitListener = Events.subscribe(PlayerQuitEvent.class)
+                .handler(e -> this.listeners.remove(e.getPlayer()));
         this.task = Schedulers.async()
                 .run(() -> {
                     while (!this.closed) {
                         long start = System.currentTimeMillis();
 
                         synchronized (MusicPlayer.this) {
-                            if (this.playing) {
-                                this.tick++;
+                            this.tick++;
 
-                                if (this.tick > this.song.getLength()) {
-                                    this.tick = -1;
-                                    continue;
-                                }
-
-                                Schedulers.sync().run(MusicPlayer.this::playTick);
+                            if (this.tick > this.song.getLength()) {
+                                this.tick = -1;
+                                continue;
                             }
+
+                            Schedulers.sync().run(MusicPlayer.this::playTick);
                         }
 
                         if (this.closed) {
@@ -102,9 +106,10 @@ public class MusicPlayer implements Terminable {
     @Override
     public void close() {
         this.closed = true;
-        this.playing = false;
         this.task.closeAndReportException();
+        this.quitListener.closeAndReportException();
         this.task = null;
+        this.quitListener = null;
     }
 
     @Override

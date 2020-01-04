@@ -30,14 +30,6 @@ public abstract class AbstractGoal implements Goal {
         return this.compositeTerminable.bindModule(module);
     }
 
-    protected void addProgress(double amount) {
-        this.progress = Math.min(1.0D, this.progress + amount);
-    }
-
-    protected void removeProgress(double amount) {
-        this.progress = Math.max(0.0D, this.progress - amount);
-    }
-
     @Override
     public void end(@Nonnull Player player) {
         this.onEnd(player);

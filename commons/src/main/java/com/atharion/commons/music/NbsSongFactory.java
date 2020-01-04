@@ -21,7 +21,7 @@ public final class NbsSongFactory implements SongFactory {
 
     @Nonnull
     @Override
-    public Promise<Song> load(@Nonnull Path path) {
+    public Promise<Song> loadSong(@Nonnull Path path) {
         Objects.requireNonNull(path, "path");
 
         Song cached = this.songCache.get(path);
